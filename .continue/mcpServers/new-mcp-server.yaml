@@ -1,0 +1,11 @@
+name: cypress-automation-mcp
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: cypress
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-core"
+    env:
+      WORKSPACE_DIR: "/Users/nname/Desktop/Cypress_Automation_Framework"

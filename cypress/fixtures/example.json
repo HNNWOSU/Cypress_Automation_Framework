@@ -1,0 +1,122 @@
+{
+  "validUser": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "message": "This is a test message for automated testing purposes."
+  },
+  "validUsers": [
+    {
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "email": "alice.smith@testmail.com",
+      "message": "Testing contact form functionality with valid data."
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Johnson",
+      "email": "bob.johnson@example.org",
+      "message": "Automated test submission for quality assurance."
+    },
+    {
+      "firstName": "Carol",
+      "lastName": "Williams",
+      "email": "carol.williams@demo.com",
+      "message": "Verifying form submission with different user data."
+    }
+  ],
+  "invalidEmails": [
+    {
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "invalid-email",
+      "message": "Testing with invalid email format"
+    },
+    {
+      "firstName": "Test",
+      "lastName": "User", 
+      "email": "@missing-local.com",
+      "message": "Testing with missing local part in email"
+    },
+    {
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "missing-domain@",
+      "message": "Testing with missing domain in email"
+    },
+    {
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "spaces in@email.com",
+      "message": "Testing with spaces in email"
+    }
+  ],
+  "boundaryTestData": {
+    "maxLengthData": {
+      "firstName": "ThisIsAVeryLongFirstNameThatExceedsNormalLimitsForTestingPurposesOnly",
+      "lastName": "ThisIsAVeryLongLastNameThatExceedsNormalLimitsForTestingPurposesOnly", 
+      "email": "very.long.email.address.for.testing@extremely-long-domain-name-for-testing.com",
+      "message": "This is an extremely long message that is designed to test the maximum character limits of the message field in the contact form. It contains multiple sentences and various punctuation marks to simulate a real user input scenario. The purpose is to verify that the form can handle large amounts of text without breaking or causing any issues with the submission process. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "minLengthData": {
+      "firstName": "A",
+      "lastName": "B", 
+      "email": "a@b.co",
+      "message": "Hi"
+    },
+    "specialCharacters": {
+      "firstName": "José",
+      "lastName": "O'Connor-Smith",
+      "email": "jose.oconnor+test@example-site.co.uk",
+      "message": "Testing with special characters: áéíóú, ñ, ç, and symbols like @#$%!"
+    }
+  },
+  "emptyData": {
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "message": ""
+  },
+  "partialData": [
+    {
+      "scenario": "Missing First Name",
+      "firstName": "",
+      "lastName": "Doe",
+      "email": "test@example.com",
+      "message": "Testing missing first name"
+    },
+    {
+      "scenario": "Missing Last Name", 
+      "firstName": "John",
+      "lastName": "",
+      "email": "test@example.com",
+      "message": "Testing missing last name"
+    },
+    {
+      "scenario": "Missing Email",
+      "firstName": "John",
+      "lastName": "Doe", 
+      "email": "",
+      "message": "Testing missing email"
+    },
+    {
+      "scenario": "Missing Message",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "test@example.com",
+      "message": ""
+    }
+  ],
+  "xssTestData": {
+    "firstName": "<script>alert('XSS')</script>",
+    "lastName": "javascript:alert('XSS')",
+    "email": "test@example.com",
+    "message": "<img src=x onerror=alert('XSS')>"
+  },
+  "sqlInjectionTestData": {
+    "firstName": "'; DROP TABLE users; --",
+    "lastName": "1' OR '1'='1",
+    "email": "test@example.com", 
+    "message": "1' UNION SELECT * FROM sensitive_data --"
+  }
+}

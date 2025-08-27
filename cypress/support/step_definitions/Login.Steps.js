@@ -1,17 +1,22 @@
 /// <reference types="cypress" />
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import Base_PO from "../page-objects/Base_PO";
+
+const base_PO = new Base_PO();
 
 // And Steps - Additional Actions
-const url = "https://www.webdriveruniversity.com/";
+// const url = "https://www.webdriveruniversity.com/";
 
 // Given Steps - Setup/Preconditions
 Given(`I visit the WebdriverUniversity Homepage`, () => {
-  cy.visit(url);
+  // cy.visit(url);
+  base_PO.navigate("");
 })
 
 // When Steps - Actions
 When(`I click on the Login Portal Link`, () => {
-  cy.get("#login-portal").invoke("removeAttr", "target").click();
+  // cy.get("#login-portal").invoke("removeAttr", "target").click();
+  cy.clickAndOpenLink_InSameTab("#login-portal");
 })
 
 // Single step definition for handling credentials

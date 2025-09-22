@@ -27,7 +27,7 @@ pipeline {
 
     stage('Run Cypress suite') {
       steps {
-        sh 'npm run full-regression-headless-chrome'
+        sh 'npm run full-regression-headed-electron'
       }
     }
 

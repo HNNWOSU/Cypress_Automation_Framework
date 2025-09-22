@@ -1,0 +1,53 @@
+pipeline {
+  agent {
+    docker {
+      image 'cypress/browsers:node18.17.1-chrome117-ff116'
+      args '-u root:root --ipc=host'
+    }
+  }
+
+  environment {
+    CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
+    npm_config_cache = "${WORKSPACE}/.cache/npm"
+  }
+
+  options {
+    timestamps()
+    ansiColor('xterm')
+  }
+
+  stages {
+    stage('Install dependencies') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+
+    stage('Clean previous reports') {
+      steps {
+        sh 'npm run clean:reports || true'
+      }
+    }
+
+    stage('Run Cypress suite') {
+      steps {
+        sh 'npm run full-regression-headless-chrome'
+      }
+    }
+
+    stage('Archive reports') {
+      when {
+        expression { fileExists('cypress/reports') }
+      }
+      steps {
+        archiveArtifacts artifacts: 'cypress/reports/**/*', allowEmptyArchive: true
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}

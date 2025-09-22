@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/browsers:latest'
-      args '-u root:root --ipc=host'
-    }
-  }
+  agent any
 
   environment {
     CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
@@ -13,13 +8,14 @@ pipeline {
 
   options {
     timestamps()
-    ansiColor('xterm')
   }
 
   stages {
     stage('Install dependencies') {
       steps {
         sh 'npm ci'
+        sh 'npx cypress install'
+        sh 'npx cypress verify'
       }
     }
 
@@ -47,7 +43,11 @@ pipeline {
 
   post {
     always {
-      cleanWs()
+      script {
+        if (env.WORKSPACE) {
+          cleanWs()
+        }
+      }
     }
   }
 }

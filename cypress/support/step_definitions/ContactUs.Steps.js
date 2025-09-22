@@ -1,65 +1,82 @@
 import {When, Then} from "@badeball/cypress-cucumber-preprocessor";
+import Contact_Us_PO from "../page_objects/Contact_Us_PO";
+
+const contactUs_PO = new Contact_Us_PO();
 
 
 // And Steps - Additional Actions
 When(`I type a First Name`, () => {
-    cy.get('input[name="first_name"]').type("John");
-  
+    // cy.get('input[name="first_name"]').type("John");
+    contactUs_PO.type_FirstName("John");
 })
 
 When(`I type a Last Name`, () => {
-    cy.get('input[name="last_name"]').type("Doe");
+    // cy.get('input[name="last_name"]').type("Doe");
+    contactUs_PO.type_LastName("Doe");
   
 })
 
 When(`I enter a valid email address`, () => {
-    cy.get('input[name="email"]').type("john.doe@example.com");
+    // cy.get('input[name="email"]').type("john.doe@example.com");
+    contactUs_PO.type_Email("john.doe@example.com");
 
 })
 
 When(`I type a comment`, () => {
-    cy.get('textarea[name="message"]').type("This is a test comment.");
+    // cy.get('textarea[name="message"]').type("This is a test comment.");
+    contactUs_PO.type_Comments("This is a test comment.");
 
 })
 
 When(`I submit the form`, () => {
-    cy.get('input[type="submit"]').click();
+    // cy.get('input[type="submit"]').click();
+    contactUs_PO.click_SubmitButton();
 
 })
 
 Then(`I should see a success message confirming the submission`, () => {
-    cy.get('h1').should("have.text", 'Thank You for your Message!');
+    // cy.get('h1').should("have.text", 'Thank You for your Message!');
+    contactUs_PO.validate_SubmissionHeader('Thank You for your Message!');
   
 })
 
 Then(`I should see an error message indicating the required fields`, () => {
-    cy.get('body').should('contain.text', 'Error: all fields are required');
+    // cy.get('body').should('contain.text', 'Error: all fields are required');
+    contactUs_PO.validate_ErrorMessage();
 })
 
 When(`I type a "First Name" field with {string}`, (firstName) => {
-    cy.get('input[name="first_name"]').type(firstName);
+    // cy.get('input[name="first_name"]').type(firstName);
+    contactUs_PO.type_FirstName(firstName);
 })
 
 When(`I type a "Last Name" field with {string}`, (lastName) => {
-    cy.get('input[name="last_name"]').type(lastName);
+    // cy.get('input[name="last_name"]').type(lastName);
+    contactUs_PO.type_LastName(lastName);
 })
 
 When(`I enter a valid email address {string}`, (email) => {
-    cy.get('input[name="email"]').type(email);
+    // cy.get('input[name="email"]').type(email);
+    contactUs_PO.type_Email(email);
 })
 
 When(`I type a comment {string} and number {int}`, (word, number) => {
-    cy.get('textarea[name="message"]').type(`${word} ${number}`);
+    // cy.get('textarea[name="message"]').type(`${word} ${number}`);
+    contactUs_PO.type_Comments(`${word} ${number}`);
 })
 
 When(`I type in a {word} and {string}`, (firstName, lastName) => {
-    cy.get('input[name="first_name"]').type(firstName);
-    cy.get('input[name="last_name"]').type(lastName);
+    // cy.get('input[name="first_name"]').type(firstName);
+    // cy.get('input[name="last_name"]').type(lastName);
+    contactUs_PO.type_FirstName(firstName);
+    contactUs_PO.type_LastName(lastName);
 })
 
 When(`I type in a  {string} and {string}`, (email, comment) => {
-    cy.get('input[name="email"]').type(email);
-    cy.get('textarea[name="message"]').type(comment);
+    // cy.get('input[name="email"]').type(email);
+    // cy.get('textarea[name="message"]').type(comment);
+    contactUs_PO.type_Email(email);
+    contactUs_PO.type_Comments(comment);
 })
 
 Then(`I should be presented with a header text {string}`, (message) => {

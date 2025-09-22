@@ -2,7 +2,7 @@ import {When,Before, After} from "@badeball/cypress-cucumber-preprocessor";
 
 // Before Hook - Runs before each scenario
 Before(() => {
-    cy.log("Executes Before Easch Scenario?Test.");
+    cy.log("Executes Before Easch Scenario/Test.");
     cy.clearLocalStorage();
     
 });
@@ -14,7 +14,7 @@ Before({tags: "@smoke"}, () => {
 
 //After Hook - Runs after each scenario
 After(() => {
-    cy.log("Executes After Each Scenario?Test.");
+    cy.log("Executes After Each Scenario/Test.");
 
 });
 

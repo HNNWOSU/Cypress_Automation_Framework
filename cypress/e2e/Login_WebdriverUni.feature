@@ -3,8 +3,9 @@ Feature: WebdriverUniversity Login Portal
 
   Background: Pre-conditions
     When I wait for 0 seconds
-    Given I visit the WebdriverUniversity Homepage
-    When I click on the Login Portal Link
+    # Given I visit the WebdriverUniversity Homepage
+    # When I click on the Login Portal Link
+    Given I navigate to the webdriver University Login Page
 
   Scenario Outline: Validate Login Page
     And I enter a <username> and <password>

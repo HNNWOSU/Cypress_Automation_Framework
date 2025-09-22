@@ -1,22 +1,6 @@
 pipeline {
   agent any
 
-  parameters {
-    choice(
-      name: 'TEST_SUITE',
-      choices: [
-        'ci-tests',
-        'contact-us-tests-headed',
-        'contact-us-tests-headless', 
-        'login-tests-headed',
-        'login-and-smoke-pack',
-        'smoke-pack-headed',
-        'regression-pack-headed'
-      ],
-      description: 'Test suite to execute'
-    )
-  }
-
   environment {
     CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
     npm_config_cache = "${WORKSPACE}/.cache/npm"
@@ -43,14 +27,16 @@ pipeline {
 
     stage('Run Cypress suite') {
       steps {
-        sh "npm run ${params.TEST_SUITE}"
+        sh 'npm run full-regression-headed-electron'
       }
     }
 
     stage('Archive reports') {
       steps {
+        // Archive all reports as artifacts
         archiveArtifacts artifacts: 'cypress/reports/**/*', allowEmptyArchive: true
         
+        // Publish HTML reports (requires HTML Publisher plugin)
         publishHTML([
           allowMissing: false,
           alwaysLinkToLastBuild: true,
@@ -58,7 +44,7 @@ pipeline {
           reportDir: 'cypress/reports/html-multi-report',
           reportFiles: 'index.html',
           reportName: 'Cypress Test Report',
-          reportTitles: "Test Results - ${params.TEST_SUITE}"
+          reportTitles: 'Cypress Cucumber Test Results'
         ])
       }
     }

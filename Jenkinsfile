@@ -32,11 +32,20 @@ pipeline {
     }
 
     stage('Archive reports') {
-      when {
-        expression { fileExists('cypress/reports') }
-      }
       steps {
+        // Archive all reports as artifacts
         archiveArtifacts artifacts: 'cypress/reports/**/*', allowEmptyArchive: true
+        
+        // Publish HTML reports (requires HTML Publisher plugin)
+        publishHTML([
+          allowMissing: false,
+          alwaysLinkToLastBuild: true,
+          keepAll: true,
+          reportDir: 'cypress/reports/html-multi-report',
+          reportFiles: 'index.html',
+          reportName: 'Cypress Test Report',
+          reportTitles: 'Cypress Cucumber Test Results'
+        ])
       }
     }
   }
